@@ -5,13 +5,14 @@ import { Mutation } from "./resolvers/mutation.ts";
 import { typeDefs } from "./gql/schema.ts";
 import mongoose from "mongoose";
 
-const MONGO_URL = Deno.env.get("MONGO_URL");
+const MONGO_URL: string | undefined = Deno.env.get("MONGO_URL");
+
 if (!MONGO_URL) {
-  throw new Error("Please provide a MongoDB connection string");
+  console.log("Url not found in env");
+  Deno.exit(1);
 }
 
-// Connect to MongoDB
-await mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URL);
 
 const server = new ApolloServer({
   typeDefs,
