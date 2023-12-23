@@ -9,7 +9,7 @@ const MONGO_URL: string | undefined = Deno.env.get("MONGO_URL");
 
 if (!MONGO_URL) {
   console.log("Url not found in env");
-  Deno.exit(1);
+  Deno.exit(0);
 }
 
 mongoose.connect(MONGO_URL);
